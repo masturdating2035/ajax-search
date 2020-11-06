@@ -56,16 +56,15 @@
         function search() {
             let input = $('#input').val()
 
-            $.ajax({
-                url: `http://localhost:3000/results?q=${input}`,
-                success: function (data) {
+            $.get(`http://localhost:3000/results?q=${input}`,
+                function (data) {
                     let str = ''
                     data.forEach(function (item) {
                         str += `<li>${item.title}</li>`
                     })
                     $('#result').html(str)
                 }
-            })
+            )
         }
     </script>
 </body>
