@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <title>Google Search</title>
+    <style>
+        body {
+            background: #ddd;
+            font-family: Shabnam, sans-serif;
+        }
+
+        input {
+            width: 20rem;
+            background: white;
+            border: 1px solid #ebebeb;
+            border-radius: 1rem;
+            padding: 0.5rem;
+            font-size: 15px;
+            font-family: Shabnam, sans-serif;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        button {
+            background: white;
+            border: 1px solid #ebebeb;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            margin-left: 1rem;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:focus {
+            outline: none;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="جستجو کنید..." dir="rtl" id="input">
+    <button onclick="search()">Search</button>
+
+    <ul id="result"></ul>
+
+
+    <script>
+        // json-server --w search_db.json
+
+        function search() {
+            let input = $('#input').val()
+
+            $.ajax({
+                url: `http://localhost:3000/results?q=${input}`,
+                success: function (data) {
+                    let str = ''
+                    data.forEach(function (item) {
+                        str += `<li>${item.title}</li>`
+                    })
+                    $('#result').html(str)
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
